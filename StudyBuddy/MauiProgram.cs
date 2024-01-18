@@ -18,24 +18,14 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<HomeViewModel>();
-
-		builder.Services.AddSingleton<HomePage>();
-
 		builder.Services.AddSingleton<CategoryViewModel>();
-
-		builder.Services.AddSingleton<CategoryPage>();
-
 		builder.Services.AddSingleton<ManageCardsViewModel>();
-
-		builder.Services.AddSingleton<ManageCardsPage>();
-
 		builder.Services.AddSingleton<LearningViewModel>();
 
+		builder.Services.AddSingleton<HomePage>();
+		builder.Services.AddSingleton<CategoryPage>();
+		builder.Services.AddSingleton<ManageCardsPage>();
 		builder.Services.AddSingleton<LearningPage>();
-
-		builder.Services.AddSingleton<LocalizationViewModel>();
-
-		builder.Services.AddSingleton<LocalizationPage>();
 
 		return builder.Build();
 	}

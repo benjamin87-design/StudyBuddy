@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using static Android.Resource;
 
 namespace StudyBuddy.DataService
 {
@@ -107,8 +108,8 @@ namespace StudyBuddy.DataService
 			}
 		}
 
-		//Delete category from database
-		public void DeleteCategory(Models.CategoryModel categories)
+		//Delete category from database where id is id
+		public void DeleteCategory(int Id)
 		{
 			using (var connection = new SqliteConnection($"Data Source={dbPath}"))
 			{
@@ -117,11 +118,11 @@ namespace StudyBuddy.DataService
 				var command = connection.CreateCommand();
 				command.CommandText =
 				@"
-					DELETE FROM categories
-					WHERE id = $id
-				";
+                DELETE FROM employees 
+                WHERE id = $id
+            ";
 
-				command.Parameters.AddWithValue("$id", categories.Id);
+				command.Parameters.AddWithValue("$id", Id);
 
 				command.ExecuteNonQuery();
 			}

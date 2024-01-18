@@ -14,6 +14,8 @@ public partial class App : Application
 
 	private void InitializeDatabase()
 	{
+		SQLitePCL.Batteries_V2.Init();
+
 		var dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "StudyBuddy.db");
 
 		using (var connection = new SqliteConnection($"Data Source={dbPath}"))

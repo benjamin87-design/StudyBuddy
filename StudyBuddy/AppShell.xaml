@@ -1,39 +1,33 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <Shell
-	x:Class="StudyBuddy.AppShell"
-	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:views="clr-namespace:StudyBuddy.Views"
-	xmlns:local="clr-namespace:StudyBuddy">
+    x:Class="StudyBuddy.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:StudyBuddy"
+    xmlns:views="clr-namespace:StudyBuddy.Views">
 
-	<ShellContent
-		Shell.NavBarIsVisible="true"
-		Title="Home"
-		Icon="iconblank.png"
-		ContentTemplate="{DataTemplate views:HomePage}"
-		Route="HomePage" />
-	<ShellContent
-		Shell.NavBarIsVisible="true"
-		Title="Category"
-		Icon="iconblank.png"
-		ContentTemplate="{DataTemplate views:CategoryPage}"
-		Route="CategoryPage" />
-	<ShellContent
-		Shell.NavBarIsVisible="true"
-		Title="ManageCards"
-		Icon="iconblank.png"
-		ContentTemplate="{DataTemplate views:ManageCardsPage}"
-		Route="ManageCardsPage" />
-	<ShellContent
-		Shell.NavBarIsVisible="true"
-		Title="Learning"
-		Icon="iconblank.png"
-		ContentTemplate="{DataTemplate views:LearningPage}"
-		Route="LearningPage" />
-	<ShellContent
-		Shell.NavBarIsVisible="true"
-		Title="Localization"
-		Icon="iconlocalization.png"
-		ContentTemplate="{DataTemplate views:LocalizationPage}"
-		Route="LocalizationPage" />
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate views:HomePage}"
+        Icon="iconblank.png"
+        Route="HomePage"
+        Shell.NavBarIsVisible="true" />
+    <ShellContent
+        Title="Category"
+        ContentTemplate="{DataTemplate views:CategoryPage}"
+        Icon="iconblank.png"
+        Route="CategoryPage"
+        Shell.NavBarIsVisible="true" />
+    <ShellContent
+        Title="ManageCards"
+        ContentTemplate="{DataTemplate views:ManageCardsPage}"
+        Icon="iconblank.png"
+        Route="ManageCardsPage"
+        Shell.NavBarIsVisible="true" />
+    <ShellContent
+        Title="Learning"
+        ContentTemplate="{DataTemplate views:LearningPage}"
+        Icon="iconblank.png"
+        Route="LearningPage"
+        Shell.NavBarIsVisible="true" />
 </Shell>
