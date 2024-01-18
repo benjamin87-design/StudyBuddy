@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.Sqlite;
-using static Android.Resource;
 
 namespace StudyBuddy.DataService
 {
@@ -118,7 +117,7 @@ namespace StudyBuddy.DataService
 				var command = connection.CreateCommand();
 				command.CommandText =
 				@"
-                DELETE FROM employees 
+                DELETE FROM categories 
                 WHERE id = $id
             ";
 
@@ -145,17 +144,20 @@ namespace StudyBuddy.DataService
 					INSERT INTO flashcards(
 						question,
 						answer,
+						categoryname,
 						categoryid
 					)
 					VALUES(
 						$question,
 						$answer,
+						$categoryname,
 						$categoryid
 					)
 				";
 
 				command.Parameters.AddWithValue("$question", flashcards.Question);
 				command.Parameters.AddWithValue("$answer", flashcards.Answer);
+				command.Parameters.AddWithValue("$categoryname", flashcards.CategoryName);
 				command.Parameters.AddWithValue("$categoryid", flashcards.CategoryId);
 
 				command.ExecuteNonQuery();
@@ -178,6 +180,7 @@ namespace StudyBuddy.DataService
 						id,
 						question,
 						answer,
+						categoryname,
 						categoryid
 					FROM flashcards
 				";
@@ -190,7 +193,8 @@ namespace StudyBuddy.DataService
 					flashcard.Id = reader.GetInt32(0);
 					flashcard.Question = reader.GetString(1);
 					flashcard.Answer = reader.GetString(2);
-					flashcard.CategoryId = reader.GetInt32(3);
+					flashcard.CategoryName = reader.GetString(3);
+					flashcard.CategoryId = reader.GetInt32(4);
 
 					flashcards.Add(flashcard);
 				}
@@ -213,12 +217,14 @@ namespace StudyBuddy.DataService
 					SET
 						question = $question,
 						answer = $answer,
+						categoryname = $categoryname,
 						categoryid = $categoryid
 					WHERE id = $id
 				";
 
 				command.Parameters.AddWithValue("$question", flashcards.Question);
 				command.Parameters.AddWithValue("$answer", flashcards.Answer);
+				command.Parameters.AddWithValue("$categoryname", flashcards.CategoryName);
 				command.Parameters.AddWithValue("$categoryid", flashcards.CategoryId);
 				command.Parameters.AddWithValue("$id", flashcards.Id);
 
@@ -227,7 +233,7 @@ namespace StudyBuddy.DataService
 		}
 
 		//Delete flashcard from database
-		public void DeleteFlashCard(Models.FlashCardModel flashcards)
+		public void DeleteFlashCard(int Id)
 		{
 			using (var connection = new SqliteConnection($"Data Source={dbPath}"))
 			{
@@ -240,7 +246,7 @@ namespace StudyBuddy.DataService
 					WHERE id = $id
 				";
 
-				command.Parameters.AddWithValue("$id", flashcards.Id);
+				command.Parameters.AddWithValue("$id", Id);
 
 				command.ExecuteNonQuery();
 			}

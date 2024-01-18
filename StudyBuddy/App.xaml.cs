@@ -41,6 +41,7 @@ public partial class App : Application
                     id INTEGER PRIMARY KEY,
                     question TEXT NOT NULL,
                     answer TEXT NOT NULL,
+					categoryname TEXT NOT NULL,
                     categoryid INTEGER NOT NULL,
                     FOREIGN KEY (categoryid) REFERENCES categories (id)
                 )

@@ -1,8 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
-			 x:Class="StudyBuddy.Views.CategoryPage"
-			 x:DataType="vm:CategoryViewModel">
+<ContentPage
+    x:Class="StudyBuddy.Views.CategoryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
+    x:DataType="vm:CategoryViewModel">
 
+    <StackLayout Orientation="Vertical">
+        <StackLayout Margin="20" Orientation="Horizontal">
+            <Button
+                Margin="5"
+                Command="{Binding AddCategoryToDbCommand}"
+                Text="Add" />
+            <Button
+                Margin="5"
+                Command="{Binding UpdateCategoryCommand}"
+                Text="Update" />
+            <Button
+                Margin="5"
+                Command="{Binding DeleteCategoryCommand}"
+                Text="Delete" />
+        </StackLayout>
+
+        <StackLayout Margin="20" Orientation="Vertical">
+            <Entry
+                Margin="5"
+                Placeholder="Category Name"
+                Text="{Binding CategoryName, Mode=TwoWay}" />
+            <Entry
+                Margin="5"
+                Placeholder="Subcategory"
+                Text="{Binding SubCategory, Mode=TwoWay}" />
+            <Entry
+                Margin="5"
+                Placeholder="Booklet"
+                Text="{Binding Booklet, Mode=TwoWay}" />
+        </StackLayout>
+
+        <StackLayout Margin="20" Orientation="Vertical">
+            <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label
+                                    Margin="5"
+                                    FontAttributes="Bold"
+                                    FontSize="Subtitle"
+                                    Text="{Binding CategoryName}" />
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Margin="5" Text="{Binding SubCategory}" />
+                                    <Label Margin="5" Text="{Binding Booklet}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

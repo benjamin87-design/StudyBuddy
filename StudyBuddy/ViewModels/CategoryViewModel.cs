@@ -7,6 +7,8 @@ public partial class CategoryViewModel : BaseViewModel
 	private DatabaseService _databaseService;
 
 	[ObservableProperty]
+	public int id;
+	[ObservableProperty]
 	public string categoryName;
 	[ObservableProperty]
 	public string subCategory;
@@ -15,12 +17,14 @@ public partial class CategoryViewModel : BaseViewModel
 
 	[ObservableProperty]
 	public CategoryModel selectedCategory;
+
 	[ObservableProperty]
 	public List<CategoryModel> categories; 
 
 	public CategoryViewModel()
 	{
 		_databaseService = new DatabaseService();
+		Categories = new List<CategoryModel>();
 
 		GetAllCategoriesFromDb();
 	}
@@ -40,6 +44,14 @@ public partial class CategoryViewModel : BaseViewModel
 		}
 	}
 
+	public void ClearStrings()
+	{
+		Id = 0;
+		CategoryName = "";
+		SubCategory = "";
+		Booklet = "";
+	}
+
 	//Add category to database
 	[RelayCommand]
 	public async Task AddCategoryToDb()
@@ -54,7 +66,9 @@ public partial class CategoryViewModel : BaseViewModel
 			};
 
 			_databaseService.AddCategory(newCategory);
+
 			GetAllCategoriesFromDb();
+			ClearStrings();
 		}
 		catch (Exception ex)
 		{
@@ -65,13 +79,16 @@ public partial class CategoryViewModel : BaseViewModel
 	[RelayCommand]
 	public async Task UpdateCategory(CategoryModel categoryToUpdate)
 	{
-		if(selectedCategory == null)
+		if(SelectedCategory == null)
 		{
 			await Shell.Current.DisplayAlert("Error", "Please select a category to update", "OK");
 			return;
 		}
 		else
 		{
+			//pass selectedCategory to categoryToUpdate
+			categoryToUpdate = SelectedCategory;
+
 			try
 			{
 				// Modify the properties of the employee object here...
@@ -81,6 +98,7 @@ public partial class CategoryViewModel : BaseViewModel
 
 				_databaseService.UpdateCategory(categoryToUpdate);
 				GetAllCategoriesFromDb();
+				ClearStrings();
 			}
 			catch (Exception ex)
 			{
@@ -103,6 +121,7 @@ public partial class CategoryViewModel : BaseViewModel
 			{
 				_databaseService.DeleteCategory(SelectedCategory.Id);
 				GetAllCategoriesFromDb();
+				ClearStrings();
 			}
 			catch (Exception ex)
 			{

@@ -1,8 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
-			 x:Class="StudyBuddy.Views.ManageCardsPage"
-			 x:DataType="vm:ManageCardsViewModel">
+<ContentPage
+    x:Class="StudyBuddy.Views.ManageCardsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
+    x:DataType="vm:ManageCardsViewModel">
+    <StackLayout Orientation="Vertical">
+        <StackLayout Margin="20" Orientation="Horizontal">
+            <Button
+                Margin="5"
+                Command="{Binding AddFlashCardToDbCommand}"
+                Text="Add" />
+            <Button
+                Margin="5"
+                Command="{Binding UpdateFlashCardCommand}"
+                Text="Update" />
+            <Button
+                Margin="5"
+                Command="{Binding DeleteFlashCardCommand}"
+                Text="Delete" />
+        </StackLayout>
 
+        <StackLayout Margin="20" Orientation="Vertical">
+            <Picker
+                Margin="5"
+                ItemDisplayBinding="{Binding CategoryName}"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedCategory}" />
+            <Entry
+                Margin="5"
+                Placeholder="Question"
+                Text="{Binding Question, Mode=TwoWay}" />
+            <Entry
+                Margin="5"
+                Placeholder="Answer"
+                Text="{Binding Answer, Mode=TwoWay}" />
+        </StackLayout>
+
+        <StackLayout Margin="20" Orientation="Vertical">
+            <ListView ItemsSource="{Binding Flashcards}" SelectedItem="{Binding SelectedFlashCard}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label
+                                    Margin="5"
+                                    FontAttributes="Bold"
+                                    FontSize="Subtitle"
+                                    Text="{Binding Question}" />
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Margin="5" Text="{Binding Answer}" />
+                                    <Label Margin="5" Text="{Binding CategoryName}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>
