@@ -53,6 +53,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\check.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Compile Update="Resources\Strings\AppResources.es.Designer.cs">
 			<DependentUpon>AppResources.es.resx</DependentUpon>
 			<DesignTime>True</DesignTime>

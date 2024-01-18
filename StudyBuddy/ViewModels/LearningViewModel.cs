@@ -12,6 +12,8 @@ public partial class LearningViewModel : BaseViewModel
 	private string categoryName;
 	[ObservableProperty]
 	private bool visibilityAnswer;
+	[ObservableProperty]
+	private bool visibilityCheck;
 
 	[ObservableProperty]
 	public CategoryModel selectedCategory; 
@@ -20,12 +22,17 @@ public partial class LearningViewModel : BaseViewModel
 	public List<CategoryModel> categories;
 	[ObservableProperty]
 	public List<FlashCardModel> flashcards;
+	[ObservableProperty]
+	public List<FlashCardModel> correctflashcardanswer;
 
 	public LearningViewModel()
 	{
 		_databaseService = new DatabaseService();
 
 		Categories = new List<CategoryModel>();
+		Flashcards = new List<FlashCardModel>();
+		Correctflashcardanswer = new List<FlashCardModel>();
+
 		GetAllCategories();
 		VisibilityAnswer = false;
 	}
@@ -37,6 +44,7 @@ public partial class LearningViewModel : BaseViewModel
 		CategoryName = "";
 		Flashcards.Clear();
 		VisibilityAnswer = false;
+		VisibilityCheck = false;
 	}
 	
 	public async void GetAllCategories()
@@ -60,20 +68,40 @@ public partial class LearningViewModel : BaseViewModel
 
 		try
 		{
-			//get random flashcard from database where the category is the selected category
-			Flashcards = _databaseService.GetRandomFlashCard(SelectedCategory.CategoryName);
-			if (Flashcards.Count > 0)
+			Flashcards = _databaseService.GetFlashCards();
+			if(Flashcards.Count == Correctflashcardanswer.Count)
 			{
-				//get random number between 0 and the number of flashcards in the list
-				var random = new Random();
-				var randomNumber = random.Next(0, Flashcards.Count);
+				await Shell.Current.DisplayAlert("Random Flashcard", "You have answered all flash cards", "OK");
 
-				Question = Flashcards[randomNumber].Question;
-				Answer = Flashcards[randomNumber].Answer;
+				Correctflashcardanswer.Clear();
+				await GetRandomFlashCard();
 			}
 			else
 			{
-				await Shell.Current.DisplayAlert("Random Flashcard", "No flashcards found", "OK");
+				//get random flashcard from database where the category is the selected category
+				Flashcards = _databaseService.GetRandomFlashCard(SelectedCategory.CategoryName);
+				if (Flashcards.Count > 0)
+				{
+					//get random number between 0 and the number of flashcards in the list
+					var random = new Random();
+					var randomNumber = random.Next(0, Flashcards.Count);
+
+					//check if the question is already in the correctflashcardanswer list
+					if (Correctflashcardanswer.FirstOrDefault(x => x.Question == Flashcards[randomNumber].Question) != null)
+					{
+						//if the question is already in the list, get a new random flashcard
+						await GetRandomFlashCard();
+					}
+					else
+					{
+						Question = Flashcards[randomNumber].Question;
+						Answer = Flashcards[randomNumber].Answer;
+					}
+				}
+				else
+				{
+					await Shell.Current.DisplayAlert("Random Flashcard", "No flashcards found", "OK");
+				}
 			}
 		}
 		catch (Exception ex)
@@ -83,7 +111,15 @@ public partial class LearningViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	public async Task VisibleAnswer()
+	public void CorrectAnswer()
+	{
+		//add the answer to the list correctflashcardanswer
+		Correctflashcardanswer.Add(new FlashCardModel { Question = Question, Answer = Answer });
+		VisibilityCheck = true;
+	}
+
+	[RelayCommand]
+	public void VisibleAnswer()
 	{
 		VisibilityAnswer = true;
 	}
