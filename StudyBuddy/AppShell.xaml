@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+	x:Class="StudyBuddy.AppShell"
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:views="clr-namespace:StudyBuddy.Views"
+	xmlns:local="clr-namespace:StudyBuddy">
+
+	<ShellContent
+		Shell.NavBarIsVisible="true"
+		Title="Home"
+		Icon="iconblank.png"
+		ContentTemplate="{DataTemplate views:HomePage}"
+		Route="HomePage" />
+	<ShellContent
+		Shell.NavBarIsVisible="true"
+		Title="Category"
+		Icon="iconblank.png"
+		ContentTemplate="{DataTemplate views:CategoryPage}"
+		Route="CategoryPage" />
+	<ShellContent
+		Shell.NavBarIsVisible="true"
+		Title="ManageCards"
+		Icon="iconblank.png"
+		ContentTemplate="{DataTemplate views:ManageCardsPage}"
+		Route="ManageCardsPage" />
+	<ShellContent
+		Shell.NavBarIsVisible="true"
+		Title="Learning"
+		Icon="iconblank.png"
+		ContentTemplate="{DataTemplate views:LearningPage}"
+		Route="LearningPage" />
+	<ShellContent
+		Shell.NavBarIsVisible="true"
+		Title="Localization"
+		Icon="iconlocalization.png"
+		ContentTemplate="{DataTemplate views:LocalizationPage}"
+		Route="LocalizationPage" />
+</Shell>
