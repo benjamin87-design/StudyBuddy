@@ -253,5 +253,49 @@ namespace StudyBuddy.DataService
 		}
 
 		#endregion
+
+		//Get random flashcard from database where categoryname is categoryname
+		public List<Models.FlashCardModel> GetRandomFlashCard(string categoryname)
+		{
+			var flashcards = new List<Models.FlashCardModel>();
+
+			using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+			{
+				connection.Open();
+
+				var command = connection.CreateCommand();
+				command.CommandText =
+				@"
+					SELECT
+						id,
+						question,
+						answer,
+						categoryname,
+						categoryid
+					FROM flashcards
+					WHERE categoryname = $categoryname
+					ORDER BY RANDOM()
+					LIMIT 1
+				";
+
+				command.Parameters.AddWithValue("$categoryname", categoryname);
+
+				var reader = command.ExecuteReader();
+
+				while (reader.Read())
+				{
+					var flashcard = new Models.FlashCardModel();
+					flashcard.Id = reader.GetInt32(0);
+					flashcard.Question = reader.GetString(1);
+					flashcard.Answer = reader.GetString(2);
+					flashcard.CategoryName = reader.GetString(3);
+					flashcard.CategoryId = reader.GetInt32(4);
+
+					flashcards.Add(flashcard);
+				}
+			}
+
+			return flashcards;
+		}
 	}
 }
