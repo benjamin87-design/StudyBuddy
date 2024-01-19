@@ -30,7 +30,7 @@ public partial class CategoryViewModel : BaseViewModel
 	}
 
 	//Get all categories from database
-	public async void GetAllCategoriesFromDb()
+	private async void GetAllCategoriesFromDb()
 	{
 		Categories.Clear();
 
@@ -44,7 +44,8 @@ public partial class CategoryViewModel : BaseViewModel
 		}
 	}
 
-	public void ClearStrings()
+	//clear strings lists.....
+	private void ClearStrings()
 	{
 		Id = 0;
 		CategoryName = "";
@@ -54,7 +55,7 @@ public partial class CategoryViewModel : BaseViewModel
 
 	//Add category to database
 	[RelayCommand]
-	public async Task AddCategoryToDb()
+	private async Task AddCategoryToDb()
 	{
 		try
 		{
@@ -76,8 +77,9 @@ public partial class CategoryViewModel : BaseViewModel
 		}
 	}
 
+	//Update selected category
 	[RelayCommand]
-	public async Task UpdateCategory(CategoryModel categoryToUpdate)
+	private async Task UpdateCategory(CategoryModel categoryToUpdate)
 	{
 		if(SelectedCategory == null)
 		{
@@ -107,8 +109,9 @@ public partial class CategoryViewModel : BaseViewModel
 		}
 	}
 
+	//Delete selected category
 	[RelayCommand]
-	public async Task DeleteCategory()
+	private async Task DeleteCategory()
 	{
 		if(selectedCategory == null)
 		{

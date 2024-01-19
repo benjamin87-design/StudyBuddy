@@ -37,7 +37,7 @@ public partial class ManageCardsViewModel : BaseViewModel
 	}
 
 	//Get all categories from database
-	public async void GetAllCategoriesFromDb()
+	private async void GetAllCategoriesFromDb()
 	{
 		Categories.Clear();
 		
@@ -51,8 +51,8 @@ public partial class ManageCardsViewModel : BaseViewModel
 		}
 	}
 
-	//Get all flashcards from database
-	public async void GetAllFlashCardsFromDb()
+	//get all flashcards from database
+	private async void GetAllFlashCardsFromDb()
 	{
 		Flashcards.Clear();
 
@@ -66,7 +66,8 @@ public partial class ManageCardsViewModel : BaseViewModel
 		}
 	}
 
-	public void ClearStrings()
+	//clear strings and lists ....
+	private void ClearStrings()
 	{
 		Id = 0;
 		Question = "";
@@ -77,7 +78,7 @@ public partial class ManageCardsViewModel : BaseViewModel
 
 	//Add flashcard to database
 	[RelayCommand]
-	public async Task AddFlashCardToDb()
+	private async Task AddFlashCardToDb()
 	{
 		try
 		{
@@ -102,7 +103,7 @@ public partial class ManageCardsViewModel : BaseViewModel
 
 	//update flashcard in database
 	[RelayCommand]
-	public async Task UpdateFlashCard(FlashCardModel flashcardToUpdate)
+	private async Task UpdateFlashCard(FlashCardModel flashcardToUpdate)
 	{
 		if (SelectedFlashCard == null)
 		{
@@ -133,7 +134,7 @@ public partial class ManageCardsViewModel : BaseViewModel
 
 	//delete flashcard from database
 	[RelayCommand]
-	public async Task DeleteFlashCard()
+	private async Task DeleteFlashCard()
 	{
 		if (SelectedFlashCard == null)
 		{

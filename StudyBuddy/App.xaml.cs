@@ -48,6 +48,30 @@ public partial class App : Application
             ";
 
 			command.ExecuteNonQuery();
+
+			command.CommandText =
+			@"
+                CREATE TABLE IF NOT EXISTS progress(
+                    id INTEGER PRIMARY KEY,
+                    completition INTEGER NOT NULL,
+					categoryid INTEGER NOT NULL
+                )
+            ";
+
+			command.ExecuteNonQuery();
+
+			command.CommandText =
+			@"
+                CREATE TABLE IF NOT EXISTS infocard(
+                    id INTEGER PRIMARY KEY,
+					title TEXT NOT NULL,
+                    cardnumber INTEGER NOT NULL,
+                    numberofcompletition INTEGER NOT NULL,
+					starrating BOOL NOT NULL
+                )
+            ";
+
+			command.ExecuteNonQuery();
 		}
 	}
 }

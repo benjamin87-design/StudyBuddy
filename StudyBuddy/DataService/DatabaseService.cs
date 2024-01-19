@@ -294,8 +294,102 @@ namespace StudyBuddy.DataService
 					flashcards.Add(flashcard);
 				}
 			}
-
 			return flashcards;
 		}
+
+		#region Completition
+
+		//add progress to database
+		public void AddProgress(Models.ProgressModel progress)
+		{
+			using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+			{
+				connection.Open();
+
+				var command = connection.CreateCommand();
+				command.CommandText =
+				@"
+					INSERT INTO progress(
+						categoryid,
+						completition
+					)
+					VALUES(
+						$categoryid,
+						$completition
+					)
+				";
+
+				command.Parameters.AddWithValue("$categoryname", progress.CategoryId);
+				command.Parameters.AddWithValue("$subcategory", progress.Completition);
+
+				command.ExecuteNonQuery();
+			}
+		}
+
+		//get all progress from database
+		public List<Models.ProgressModel> GetProgress(int categoryid)
+		{
+			var progresses = new List<Models.ProgressModel>();
+
+			using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+			{
+				connection.Open();
+
+				var command = connection.CreateCommand();
+				command.CommandText =
+				@"
+					SELECT
+						id,
+						categoryid,
+						completition
+					FROM progress
+					WHERE categoryid = $categoryid
+					ORDER BY RANDOM()
+					LIMIT 1
+				";
+
+				command.Parameters.AddWithValue("$categoryid", categoryid);
+
+				var reader = command.ExecuteReader();
+
+				while (reader.Read())
+				{
+					var progress = new Models.ProgressModel();
+					progress.Id = reader.GetInt32(0);
+					progress.CategoryId = reader.GetInt32(1);
+					progress.Completition = reader.GetInt32(2);
+
+					progresses.Add(progress);
+				}
+			}
+			return progresses;
+		}
+
+		//update progress in database
+		public void UpdateProgress(ProgressModel progressModel)
+		{
+			using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+			{
+				connection.Open();
+
+				var command = connection.CreateCommand();
+				command.CommandText =
+				@"
+					UPDATE progress
+					SET
+						categoryid = $categorid,
+						completition = $completition
+					WHERE id = $id
+				";
+
+				command.Parameters.AddWithValue("$categorid", progressModel.CategoryId);
+				command.Parameters.AddWithValue("$completition", progressModel.Completition);
+				command.Parameters.AddWithValue("$id", progressModel.Id);
+
+				command.ExecuteNonQuery();
+			}
+		}
+
+		#endregion
 	}
 }

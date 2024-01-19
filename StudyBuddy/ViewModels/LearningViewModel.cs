@@ -2,6 +2,7 @@
 
 public partial class LearningViewModel : BaseViewModel
 {
+	//initialize database service
 	private DatabaseService _databaseService;
 
 	[ObservableProperty]
@@ -11,19 +12,25 @@ public partial class LearningViewModel : BaseViewModel
 	[ObservableProperty]
 	private string categoryName;
 	[ObservableProperty]
+	private int completition;
+	[ObservableProperty]
 	private bool visibilityAnswer;
 	[ObservableProperty]
 	private bool visibilityCheck;
 
+	//selected
 	[ObservableProperty]
 	public CategoryModel selectedCategory; 
 
+	//lists
 	[ObservableProperty]
 	public List<CategoryModel> categories;
 	[ObservableProperty]
 	public List<FlashCardModel> flashcards;
 	[ObservableProperty]
 	public List<FlashCardModel> correctflashcardanswer;
+	[ObservableProperty]
+	public List<ProgressModel> progresses;
 
 	public LearningViewModel()
 	{
@@ -37,7 +44,8 @@ public partial class LearningViewModel : BaseViewModel
 		VisibilityAnswer = false;
 	}
 
-	public void ClearStrings()
+	//clear strings lists .....
+	private void ClearStrings()
 	{
 		Question = "";
 		Answer = "";
@@ -46,8 +54,9 @@ public partial class LearningViewModel : BaseViewModel
 		VisibilityAnswer = false;
 		VisibilityCheck = false;
 	}
-	
-	public async void GetAllCategories()
+
+	//get all categories from database
+	private async void GetAllCategories()
 	{
 		Categories.Clear();
 
@@ -61,8 +70,12 @@ public partial class LearningViewModel : BaseViewModel
 		}
 	}
 
+	//get random flashcard from database where the category is the selected category
+	//check if the question is already in the correctflashcardanswer list
+	//if the question is already in the list, get a new random flashcard
+	//else show the question
 	[RelayCommand]
-	public async Task GetRandomFlashCard()
+	private async Task GetRandomFlashCard()
 	{
 		ClearStrings();
 
@@ -73,34 +86,64 @@ public partial class LearningViewModel : BaseViewModel
 			{
 				await Shell.Current.DisplayAlert("Random Flashcard", "You have answered all flash cards", "OK");
 
+				//check if the progress is already in the database
+				//Progresses = _databaseService.GetProgress(SelectedCategory.Id);
+
+				//if(Progresses == null)
+				//{
+				//	var newprogress = new ProgressModel
+				//	{
+				//		Id = Progresses.Count + 1,
+				//		CategoryId = SelectedCategory.Id,
+				//		Completition = 1
+				//	};
+
+				//	_databaseService.AddProgress(newprogress);
+				//}
+				//else
+				//{
+
+				//	Completition = Progresses[0].Completition + 1;
+
+				//	//if the progress is not in the database, add the progress
+				//	_databaseService.UpdateProgress(new ProgressModel { CategoryId = SelectedCategory.Id, Completition = Completition });
+				//}
+
 				Correctflashcardanswer.Clear();
 				await GetRandomFlashCard();
 			}
 			else
 			{
-				//get random flashcard from database where the category is the selected category
-				Flashcards = _databaseService.GetRandomFlashCard(SelectedCategory.CategoryName);
-				if (Flashcards.Count > 0)
+				try
 				{
-					//get random number between 0 and the number of flashcards in the list
-					var random = new Random();
-					var randomNumber = random.Next(0, Flashcards.Count);
-
-					//check if the question is already in the correctflashcardanswer list
-					if (Correctflashcardanswer.FirstOrDefault(x => x.Question == Flashcards[randomNumber].Question) != null)
+					//get random flashcard from database where the category is the selected category
+					Flashcards = _databaseService.GetRandomFlashCard(SelectedCategory.CategoryName);
+					if (Flashcards.Count > 0)
 					{
-						//if the question is already in the list, get a new random flashcard
-						await GetRandomFlashCard();
+						//get random number between 0 and the number of flashcards in the list
+						var random = new Random();
+						var randomNumber = random.Next(0, Flashcards.Count);
+
+						//check if the question is already in the correctflashcardanswer list
+						if (Correctflashcardanswer.FirstOrDefault(x => x.Question == Flashcards[randomNumber].Question) != null)
+						{
+							//if the question is already in the list, get a new random flashcard
+							await GetRandomFlashCard();
+						}
+						else
+						{
+							Question = Flashcards[randomNumber].Question;
+							Answer = Flashcards[randomNumber].Answer;
+						}
 					}
 					else
 					{
-						Question = Flashcards[randomNumber].Question;
-						Answer = Flashcards[randomNumber].Answer;
+						await Shell.Current.DisplayAlert("Random Flashcard", "No flashcards found", "OK");
 					}
 				}
-				else
+				catch(Exception ex)
 				{
-					await Shell.Current.DisplayAlert("Random Flashcard", "No flashcards found", "OK");
+					await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
 				}
 			}
 		}
@@ -110,16 +153,18 @@ public partial class LearningViewModel : BaseViewModel
 		}
 	}
 
+	//add the answer to the list correctflashcardanswer
 	[RelayCommand]
-	public void CorrectAnswer()
+	private void CorrectAnswer()
 	{
 		//add the answer to the list correctflashcardanswer
 		Correctflashcardanswer.Add(new FlashCardModel { Question = Question, Answer = Answer });
 		VisibilityCheck = true;
 	}
 
+	//show the answer
 	[RelayCommand]
-	public void VisibleAnswer()
+	private void VisibleAnswer()
 	{
 		VisibilityAnswer = true;
 	}
