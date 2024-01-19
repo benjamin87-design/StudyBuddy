@@ -3,9 +3,16 @@
     x:Class="StudyBuddy.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     xmlns:local="clr-namespace:StudyBuddy"
     xmlns:views="clr-namespace:StudyBuddy.Views">
 
+    <!--<Shell.FlyoutHeader>
+        <Grid>
+            <Label Text="{mi:Fluent Icon=Checkmark48}"/>
+        </Grid>
+    </Shell.FlyoutHeader>-->
+    
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate views:HomePage}"

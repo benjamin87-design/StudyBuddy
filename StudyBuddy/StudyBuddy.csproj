@@ -81,6 +81,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Fluent" Version="2.1.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
 		<PackageReference Include="CommunityToolkit.MVVM" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.1" />

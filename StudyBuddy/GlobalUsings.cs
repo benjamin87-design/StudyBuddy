@@ -12,3 +12,4 @@ global using System.Text.Json;
 global using System.Threading.Tasks;
 global using StudyBuddy.Models;
 global using StudyBuddy.DataService;
+global using MauiIcons.Fluent;
