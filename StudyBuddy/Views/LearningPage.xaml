@@ -21,14 +21,17 @@
             <Button
                 Margin="5"
                 Command="{Binding VisibleAnswerCommand}"
+                CornerRadius="3"
                 Text="{mi:Fluent Icon=Eye12}" />
             <Button
                 Margin="5"
                 Command="{Binding CorrectAnswerCommand}"
+                CornerRadius="3"
                 Text="{mi:Fluent Icon=Checkmark12}" />
             <Button
                 Margin="5"
                 Command="{Binding GetRandomFlashCardCommand}"
+                CornerRadius="3"
                 Text="{mi:Fluent Icon=ArrowNext12}" />
         </StackLayout>
 

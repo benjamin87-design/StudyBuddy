@@ -7,39 +7,47 @@
     xmlns:resx="clr-namespace:StudyBuddy.Resources.Strings"
     xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
     x:DataType="vm:CategoryViewModel">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" Orientation="Vertical">
+            <StackLayout Margin="20" Orientation="Horizontal">
+                <Button
+                    Margin="5"
+                    Command="{Binding AddCategoryToDbCommand}"
+                    CornerRadius="3"
+                    Text="{mi:Fluent Icon=Add12}" />
+                <Button
+                    Margin="5"
+                    Command="{Binding UpdateCategoryCommand}"
+                    CornerRadius="3"
+                    Text="{mi:Fluent Icon=ArrowCircleUp12}" />
+                <Button
+                    Margin="5"
+                    Command="{Binding DeleteCategoryCommand}"
+                    CornerRadius="3"
+                    Text="{mi:Fluent Icon=Delete12}" />
+            </StackLayout>
 
-    <StackLayout Orientation="Vertical">
-        <StackLayout Margin="20" Orientation="Horizontal">
-            <Button
-                Margin="5"
-                Command="{Binding AddCategoryToDbCommand}"
-                Text="{mi:Fluent Icon=Add12}" />
-            <Button
-                Margin="5"
-                Command="{Binding UpdateCategoryCommand}"
-                Text="{mi:Fluent Icon=ArrowCircleUp12}" />
-            <Button
-                Margin="5"
-                Command="{Binding DeleteCategoryCommand}"
-                Text="{mi:Fluent Icon=Delete12}" />
+            <StackLayout Margin="20" Orientation="Vertical">
+                <Entry
+                    Margin="5"
+                    Placeholder="{x:Static resx:AppResources.CategoryName}"
+                    Text="{Binding CategoryName, Mode=TwoWay}" />
+                <Entry
+                    Margin="5"
+                    Placeholder="{x:Static resx:AppResources.Subcategory}"
+                    Text="{Binding SubCategory, Mode=TwoWay}" />
+                <Entry
+                    Margin="5"
+                    Placeholder="{x:Static resx:AppResources.Booklet}"
+                    Text="{Binding Booklet, Mode=TwoWay}" />
+            </StackLayout>
         </StackLayout>
 
-        <StackLayout Margin="20" Orientation="Vertical">
-            <Entry
-                Margin="5"
-                Placeholder="{x:Static resx:AppResources.CategoryName}"
-                Text="{Binding CategoryName, Mode=TwoWay}" />
-            <Entry
-                Margin="5"
-                Placeholder="{x:Static resx:AppResources.Subcategory}"
-                Text="{Binding SubCategory, Mode=TwoWay}" />
-            <Entry
-                Margin="5"
-                Placeholder="{x:Static resx:AppResources.Booklet}"
-                Text="{Binding Booklet, Mode=TwoWay}" />
-        </StackLayout>
-
-        <StackLayout Margin="20" Orientation="Vertical">
+        <Grid Grid.Row="1" Margin="20">
             <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -59,6 +67,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
-    </StackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>

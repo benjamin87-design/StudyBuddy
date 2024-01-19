@@ -7,40 +7,49 @@
     xmlns:resx="clr-namespace:StudyBuddy.Resources.Strings"
     xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
     x:DataType="vm:ManageCardsViewModel">
-    <StackLayout Orientation="Vertical">
-        <StackLayout Margin="20" Orientation="Horizontal">
-            <Button
-                Margin="5"
-                Command="{Binding AddFlashCardToDbCommand}"
-                Text="{mi:Fluent Icon=Add12}" />
-            <Button
-                Margin="5"
-                Command="{Binding UpdateFlashCardCommand}"
-                Text="{mi:Fluent Icon=ArrowCircleUp12}" />
-            <Button
-                Margin="5"
-                Command="{Binding DeleteFlashCardCommand}"
-                Text="{mi:Fluent Icon=Delete12}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0" Orientation="Vertical">
+            <StackLayout Margin="20" Orientation="Horizontal">
+                <Button
+                    Margin="5"
+                    Command="{Binding AddFlashCardToDbCommand}"
+                    CornerRadius="3"
+                    Text="{mi:Fluent Icon=Add12}" />
+                <Button
+                    Margin="5"
+                    Command="{Binding UpdateFlashCardCommand}"
+                    CornerRadius="3"
+                    Text="{mi:Fluent Icon=ArrowCircleUp12}" />
+                <Button
+                    Margin="5"
+                    Command="{Binding DeleteFlashCardCommand}"
+                    CornerRadius="3"
+                    Text="{mi:Fluent Icon=Delete12}" />
+            </StackLayout>
+
+            <StackLayout Margin="20" Orientation="Vertical">
+                <Picker
+                    Title="{x:Static resx:AppResources.CategoryName}"
+                    Margin="5"
+                    ItemDisplayBinding="{Binding CategoryName}"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}" />
+                <Entry
+                    Margin="5"
+                    Placeholder="{x:Static resx:AppResources.Question}"
+                    Text="{Binding Question, Mode=TwoWay}" />
+                <Entry
+                    Margin="5"
+                    Placeholder="{x:Static resx:AppResources.Answer}"
+                    Text="{Binding Answer, Mode=TwoWay}" />
+            </StackLayout>
         </StackLayout>
 
-        <StackLayout Margin="20" Orientation="Vertical">
-            <Picker
-                Title="{x:Static resx:AppResources.CategoryName}"
-                Margin="5"
-                ItemDisplayBinding="{Binding CategoryName}"
-                ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding SelectedCategory}" />
-            <Entry
-                Margin="5"
-                Placeholder="{x:Static resx:AppResources.Question}"
-                Text="{Binding Question, Mode=TwoWay}" />
-            <Entry
-                Margin="5"
-                Placeholder="{x:Static resx:AppResources.Answer}"
-                Text="{Binding Answer, Mode=TwoWay}" />
-        </StackLayout>
-
-        <StackLayout Margin="20" Orientation="Vertical">
+        <Grid Grid.Row="1" Margin="20">
             <ListView ItemsSource="{Binding Flashcards}" SelectedItem="{Binding SelectedFlashCard}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -60,6 +69,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
-    </StackLayout>
+        </Grid>
+    </Grid>
 </ContentPage>
