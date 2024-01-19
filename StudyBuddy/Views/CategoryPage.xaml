@@ -3,6 +3,8 @@
     x:Class="StudyBuddy.Views.CategoryPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    xmlns:resx="clr-namespace:StudyBuddy.Resources.Strings"
     xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
     x:DataType="vm:CategoryViewModel">
 
@@ -11,29 +13,29 @@
             <Button
                 Margin="5"
                 Command="{Binding AddCategoryToDbCommand}"
-                Text="Add" />
+                Text="{mi:Fluent Icon=Add12}" />
             <Button
                 Margin="5"
                 Command="{Binding UpdateCategoryCommand}"
-                Text="Update" />
+                Text="{mi:Fluent Icon=ArrowCircleUp12}" />
             <Button
                 Margin="5"
                 Command="{Binding DeleteCategoryCommand}"
-                Text="Delete" />
+                Text="{mi:Fluent Icon=Delete12}" />
         </StackLayout>
 
         <StackLayout Margin="20" Orientation="Vertical">
             <Entry
                 Margin="5"
-                Placeholder="Category Name"
+                Placeholder="{x:Static resx:AppResources.CategoryName}"
                 Text="{Binding CategoryName, Mode=TwoWay}" />
             <Entry
                 Margin="5"
-                Placeholder="Subcategory"
+                Placeholder="{x:Static resx:AppResources.Subcategory}"
                 Text="{Binding SubCategory, Mode=TwoWay}" />
             <Entry
                 Margin="5"
-                Placeholder="Booklet"
+                Placeholder="{x:Static resx:AppResources.Booklet}"
                 Text="{Binding Booklet, Mode=TwoWay}" />
         </StackLayout>
 

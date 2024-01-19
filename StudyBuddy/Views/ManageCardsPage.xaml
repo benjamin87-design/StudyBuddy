@@ -3,6 +3,8 @@
     x:Class="StudyBuddy.Views.ManageCardsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    xmlns:resx="clr-namespace:StudyBuddy.Resources.Strings"
     xmlns:vm="clr-namespace:StudyBuddy.ViewModels"
     x:DataType="vm:ManageCardsViewModel">
     <StackLayout Orientation="Vertical">
@@ -10,30 +12,31 @@
             <Button
                 Margin="5"
                 Command="{Binding AddFlashCardToDbCommand}"
-                Text="Add" />
+                Text="{mi:Fluent Icon=Add12}" />
             <Button
                 Margin="5"
                 Command="{Binding UpdateFlashCardCommand}"
-                Text="Update" />
+                Text="{mi:Fluent Icon=ArrowCircleUp12}" />
             <Button
                 Margin="5"
                 Command="{Binding DeleteFlashCardCommand}"
-                Text="Delete" />
+                Text="{mi:Fluent Icon=Delete12}" />
         </StackLayout>
 
         <StackLayout Margin="20" Orientation="Vertical">
             <Picker
+                Title="{x:Static resx:AppResources.CategoryName}"
                 Margin="5"
                 ItemDisplayBinding="{Binding CategoryName}"
                 ItemsSource="{Binding Categories}"
                 SelectedItem="{Binding SelectedCategory}" />
             <Entry
                 Margin="5"
-                Placeholder="Question"
+                Placeholder="{x:Static resx:AppResources.Question}"
                 Text="{Binding Question, Mode=TwoWay}" />
             <Entry
                 Margin="5"
-                Placeholder="Answer"
+                Placeholder="{x:Static resx:AppResources.Answer}"
                 Text="{Binding Answer, Mode=TwoWay}" />
         </StackLayout>
 

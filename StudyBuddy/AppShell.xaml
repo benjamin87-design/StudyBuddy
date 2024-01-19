@@ -3,8 +3,9 @@
     x:Class="StudyBuddy.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
     xmlns:local="clr-namespace:StudyBuddy"
+    xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+    xmlns:resx="clr-namespace:StudyBuddy.Resources.Strings"
     xmlns:views="clr-namespace:StudyBuddy.Views">
 
     <!--<Shell.FlyoutHeader>
@@ -12,29 +13,29 @@
             <Label Text="{mi:Fluent Icon=Checkmark48}"/>
         </Grid>
     </Shell.FlyoutHeader>-->
-    
+
     <ShellContent
-        Title="Home"
+        Title="{x:Static resx:AppResources.Home}"
         ContentTemplate="{DataTemplate views:HomePage}"
-        Icon="iconblank.png"
+        Icon="{mi:Fluent Icon=Home24}"
         Route="HomePage"
-        Shell.NavBarIsVisible="true" />
+        Shell.NavBarIsVisible="True" />
     <ShellContent
-        Title="Category"
+        Title="{x:Static resx:AppResources.Category}"
         ContentTemplate="{DataTemplate views:CategoryPage}"
-        Icon="iconblank.png"
+        Icon="{mi:Fluent Icon=List24}"
         Route="CategoryPage"
         Shell.NavBarIsVisible="true" />
     <ShellContent
-        Title="ManageCards"
+        Title="{x:Static resx:AppResources.ManageCards}"
         ContentTemplate="{DataTemplate views:ManageCardsPage}"
-        Icon="iconblank.png"
+        Icon="{mi:Fluent Icon=ChatBubblesQuestion24}"
         Route="ManageCardsPage"
         Shell.NavBarIsVisible="true" />
     <ShellContent
-        Title="Learning"
+        Title="{x:Static resx:AppResources.Learning}"
         ContentTemplate="{DataTemplate views:LearningPage}"
-        Icon="iconblank.png"
+        Icon="{mi:Fluent Icon=LearningApp24}"
         Route="LearningPage"
         Shell.NavBarIsVisible="true" />
 </Shell>
