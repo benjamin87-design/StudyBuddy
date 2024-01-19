@@ -17,17 +17,14 @@
                 <Button
                     Margin="5"
                     Command="{Binding AddFlashCardToDbCommand}"
-                    CornerRadius="3"
                     Text="{mi:Fluent Icon=Add12}" />
                 <Button
                     Margin="5"
                     Command="{Binding UpdateFlashCardCommand}"
-                    CornerRadius="3"
                     Text="{mi:Fluent Icon=ArrowCircleUp12}" />
                 <Button
                     Margin="5"
                     Command="{Binding DeleteFlashCardCommand}"
-                    CornerRadius="3"
                     Text="{mi:Fluent Icon=Delete12}" />
             </StackLayout>
 

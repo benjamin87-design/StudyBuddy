@@ -17,17 +17,14 @@
                 <Button
                     Margin="5"
                     Command="{Binding AddCategoryToDbCommand}"
-                    CornerRadius="3"
                     Text="{mi:Fluent Icon=Add12}" />
                 <Button
                     Margin="5"
                     Command="{Binding UpdateCategoryCommand}"
-                    CornerRadius="3"
                     Text="{mi:Fluent Icon=ArrowCircleUp12}" />
                 <Button
                     Margin="5"
                     Command="{Binding DeleteCategoryCommand}"
-                    CornerRadius="3"
                     Text="{mi:Fluent Icon=Delete12}" />
             </StackLayout>
 
